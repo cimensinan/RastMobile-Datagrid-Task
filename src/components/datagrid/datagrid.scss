@@ -1,0 +1,82 @@
+@use "../../assets/scss/mixins" as m;
+@use "../../assets/scss/variables" as v;
+
+.datagrid {
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    #eff2ff -30.56%,
+    rgba(232, 236, 255, 0) 135.85%
+  ) !important;
+  border-radius: 22px;
+  margin: 1.5rem;
+  padding: 3rem 4rem;
+  .row {
+    > [class^="col-"] {
+      &:first-child {
+        position: relative;
+        .btn-light {
+          border-radius: 22px;
+          position: absolute;
+          left: 270px;
+          background-color: v.$color2;
+          border: none;
+          &:hover svg{
+            color: #6340d6;
+        }
+          svg {
+            color: v.$color1;
+            margin-bottom: 0.1rem;
+            font-size: larger;
+
+          }
+        }
+      }
+      &:last-child {
+        .btn-container {
+          @include m.flexbox(row, flex-end, center);
+          .btn-primary {
+            @include m.flexbox(row, center, center);
+            border-radius: 22px;
+            white-space: nowrap;
+            padding: 0.5rem;
+            svg {
+              font-size: large;
+              margin: 0 0.2rem 0.1rem 0.4rem;
+            }
+            span {
+              padding: 0 0.5rem;
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dx-datagrid-header-panel {
+    position: absolute;
+    top: -3.6rem;
+    left: 250px;
+    .dx-datagrid-search-panel {
+      border-radius: 40px;
+      border: none;
+      padding: 0.25rem;
+      .dx-texteditor-container {
+        border-radius: 40px;
+        .dx-texteditor-input-container {
+          border-radius: 40px;
+          .dx-icon-search {
+            display: none;
+          }
+          .dx-texteditor-input {
+            padding-left: 1rem !important;
+          }
+          .dx-placeholder {
+            left: -18px;
+          }
+        }
+      }
+    }
+  }
+}

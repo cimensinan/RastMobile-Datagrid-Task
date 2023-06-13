@@ -1,0 +1,70 @@
+@use "../../assets/scss/mixins" as m;
+@use "../../assets/scss/variables" as v;
+
+.header {
+  .navbar-toggler {
+    color: v.$color1;
+    --bs-navbar-toggler-focus-width: 0.15rem;
+  }
+  .navbar-collapse {
+    @media (max-width: 992px) {
+      background-color: v.$color4;
+      border-radius: 22px;
+      padding: 0.5rem 1rem 1rem;
+      transition: all 0.5s;
+    }
+    @media (width: 992px) {
+      background-color: v.$color2;
+      padding: 0;
+      border-radius: 0;
+    }
+    .navbar-nav {
+      @include m.flexbox(row, space-evenly, center);
+      flex: 1;
+      @media (max-width: 992px) {
+        @include m.flexbox(column, center, center);
+      }
+      @media (width: 992px) {
+        @include m.flexbox(row, space-evenly, center);
+        flex: 1;
+      }
+      .nav-link {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          margin-left: 0.5rem;
+          background-color: v.$color1;
+          transition: width 1s ease;
+        }
+        &:hover::after {
+          width: calc(100% - 1rem);
+        }
+      }
+    }
+    div.social-media {
+      @include m.flexbox(row, flex-end, center, 0.5rem);
+      margin-left: 3rem;
+      @media (max-width: 992px) {
+        margin-top: 0.5rem;
+        margin-left: 0;
+        @include m.flexbox(row, center, center, 0.5rem);
+      }
+      @media (width: 992px) {
+        margin-top: 0;
+        margin-left: 3rem;
+        @include m.flexbox(row, flex-end, center, 0.5rem);
+      }
+      .nav-link {
+        svg {
+          color: v.$color1;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
