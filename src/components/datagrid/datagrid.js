@@ -13,11 +13,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getAllData, postData } from "../../api/mockapi-service";
 import { HiFilter, HiPlus } from "react-icons/hi";
+import { RiSearch2Line } from "react-icons/ri";
 import "./datagrid.scss";
 
 const Datagrid = () => {
   const [data, setData] = useState([]);
-  const allowedPageSizes = [4, 8, "All"];
+  const allowedPageSizes = [4, 8, 0];
   const [filterRowVisible, setFilterRowVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -110,13 +111,17 @@ const Datagrid = () => {
 
   return (
     <div className="datagrid">
+      {/* Arama Barı, Filtreleme Butonu ve Yeni Hesap Ekleme Butonu */}
       <Row className="mb-3">
-        <Col sm={6}>
+        <Col md={6}>
           <Button variant="light" onClick={toggleFilterRow}>
             <HiFilter />
           </Button>
+          <Button variant="primary">
+            <RiSearch2Line className="search-icon" />
+          </Button>
         </Col>
-        <Col sm={6}>
+        <Col md={6}>
           <div className="btn-container">
             <Button
               variant="primary"
@@ -128,12 +133,18 @@ const Datagrid = () => {
           </div>
         </Col>
       </Row>
+      {/* Datagrid Bölümü */}
       <DataGrid
         dataSource={data}
         showBorders={true}
         height={550}
+        columnMinWidth={200}
         keyExpr="id"
         allowColumnReordering={true}
+        allowColumnResizing={true}
+        columnAutoWidth={true}
+        showAllText="All"
+        showAll={allowedPageSizes.includes(0)}
         rowAlternationEnabled={true}
         showColumnLines={true}
       >
@@ -142,7 +153,7 @@ const Datagrid = () => {
           visible={true}
           highlightSearchText={true}
           searchVisibleColumnsOnly={true}
-          width={250}
+          width={225}
           placeholder="Search objects..."
         />
         <FilterRow visible={filterRowVisible} />
@@ -160,29 +171,33 @@ const Datagrid = () => {
           dataField="socialMediaLink"
           caption="Sosyal Medya Linki"
           allowSorting={true}
+          visible={true}
         />
         <Column
           dataField="socialMediaName"
           caption="Sosyal Medya Adı"
           allowSorting={true}
+          visible={true}
         />
         <Column
           dataField="description"
           caption="Açıklama"
           allowSorting={true}
+          visible={true}
         />
       </DataGrid>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Yeni Hesap Ekle</Modal.Title>
-        </Modal.Header>
-        <Form noValidate onSubmit={formik.handleSubmit}>
+      <span className="show">Show:</span>
+      {/* Yeni Hesap Ekle Butonuna Basılınca Açılacak Modal Yapı */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} style={{border: "none", borderRadius: "22px"}}>
+        <Modal.Header closeButton style={{fontSize: "12px", padding: "1.5rem 1.5rem 0 0", color: "black"}}></Modal.Header>
+        <Form noValidate onSubmit={formik.handleSubmit} className="px-3">
           <Modal.Body>
-            <Form.Group controlId="formSocialMediaLink">
-              <Form.Label>Sosyal Medya Linki</Form.Label>
+            <Form.Group className="mb-3" controlId="formSocialMediaLink">
+              <Form.Label style={{fontWeight: "500", fontSize: "13px"}}>Sosyal Medya Linki</Form.Label>
               <Form.Control
-                type="text"
+                type="url"
                 {...formik.getFieldProps("socialMediaLink")}
+                style={{borderRadius: "38px"}}
                 isValid={
                   formik.touched.socialMediaLink &&
                   !formik.errors.socialMediaLink
@@ -196,10 +211,11 @@ const Datagrid = () => {
                 {formik.errors.socialMediaLink}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formSocialMediaName">
-              <Form.Label>Sosyal Medya Adı</Form.Label>
+            <Form.Group className="mb-3" controlId="formSocialMediaName">
+              <Form.Label style={{fontWeight: "500", fontSize: "13px"}}>Sosyal Medya Adı</Form.Label>
               <Form.Control
                 type="text"
+                style={{borderRadius: "38px"}}
                 {...formik.getFieldProps("socialMediaName")}
                 isValid={
                   formik.touched.socialMediaName &&
@@ -214,11 +230,11 @@ const Datagrid = () => {
                 {formik.errors.socialMediaName}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formDescription">
-              <Form.Label>Açıklama</Form.Label>
+            <Form.Group className="mb-3" controlId="formDescription">
+              <Form.Label style={{fontWeight: "500", fontSize: "13px"}}>Açıklama</Form.Label>
               <Form.Control
-                as="textarea"
-                rows={3}
+                type="text"
+                style={{borderRadius: "38px"}}
                 {...formik.getFieldProps("description")}
                 isValid={
                   formik.touched.description && !formik.errors.description
@@ -232,17 +248,16 @@ const Datagrid = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="success" type="submit">
-              Kaydet
-            </Button>
-            <Button variant="secondary" onClick={handleCancel}>
+          <Modal.Footer className="mb-3">
+            <Button variant="secondary" onClick={handleCancel} style={{borderRadius: "34px", fontSize: "13px", fontWeight: "500", color: "#744BFC"}}>
               Vazgeç
+            </Button>
+            <Button variant="primary" type="submit" disabled={!(formik.dirty && formik.isValid)} style={{borderRadius: "34px", fontSize: "13px", fontWeight: "500"}}>
+              Kaydet
             </Button>
           </Modal.Footer>
         </Form>
       </Modal>
-      <span className="show">Show:</span>
     </div>
   );
 };

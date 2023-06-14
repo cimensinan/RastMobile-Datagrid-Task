@@ -6,6 +6,7 @@ $color5: #FFFFFFB5; // Tek Sayıdaki Satırlar Arka Planı,
 $color6: #C4CEE5; // Tablo Ara Çizgileri Rengi
 $color7: #5d3cca; // btn-hover-border-color
 $color8: #6340d6; // btn-hover-bg-color
+$color9: #CFC0FF; // page-row border-color
 
 // linear-gradient(180deg, #EFF2FF -30.56%, rgba(232, 236, 255, 0) 135.85%);
 
@@ -18,7 +19,6 @@ $navbar-light-hover-color: $color1;
 $navbar-light-active-color: $color1;
 $nav-link-font-size: 14px;
 $nav-link-font-weight: 400;
-// $border-radius: 0;
-// $form-feedback-valid-color: $color1;
-// $nav-tabs-link-active-color: $color2;
-// $nav-pills-link-active-bg: #fff;
+$modal-content-border-radius: 22px;
+$modal-content-border-color: none;
+$modal-header-border-width: 0

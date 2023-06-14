@@ -1,5 +1,6 @@
 @use "../../assets/scss/mixins" as m;
 @use "../../assets/scss/variables" as v;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .datagrid {
   box-sizing: border-box;
@@ -11,72 +12,301 @@
   border-radius: 22px;
   margin: 1.5rem;
   padding: 3rem 4rem;
+  position: relative;
   .row {
+    @media (max-width: 620px) {
+      min-height: 80px;
+      transition: all 0.5s;
+    }
     > [class^="col-"] {
+      // Arama Barı ve Filtreleme Butonu
       &:first-child {
         position: relative;
+        // Filtreleme Butonu
         .btn-light {
           border-radius: 22px;
           position: absolute;
-          left: 270px;
+          left: 245px;
           background-color: v.$color2;
           border: none;
-          &:hover svg{
-            color: #6340d6;
-        }
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+          height: 2.1rem;
+          @include m.flexbox(row, center, center);
+          @media (max-width: 620px) {
+            left: 13px;
+            transition: all 0.5s;
+          }
+          @media (max-width: 380px) {
+            height: 1.8rem;
+            transition: all 0.5s;
+            
+          }
+          &:hover svg {
+            color: v.$color8;
+          }
           svg {
             color: v.$color1;
-            margin-bottom: 0.1rem;
-            font-size: larger;
-
+            font-size: 1.3rem;
+            @media (max-width: 380px) {
+              font-size: 1rem;
+              transition: all 0.5s;
+            }
+          }
+        }
+       // Arama Barı  
+        .btn-primary {
+          position: absolute;
+          left: 191px;
+          border-radius: 0 30px 30px 0;
+          z-index: 2;
+          height: 2.1rem;
+          @media (max-width: 620px) {
+            left: 265px;
+            top: 48px;
+            right: auto;
+            transition: all 0.5s;
+          }
+          @media (max-width: 475px) {
+            left: 200px;
+            transition: all 0.5s;
+          }
+          @media (max-width: 475px) {
+            left: 170px;
+            transition: all 0.5s;
+          }
+          @media (max-width: 380px) {
+            height: 1.8rem;
+            left: 145px;
+            transition: all 0.5s;
+          }
+          @include m.flexbox(row, center, center);
+          svg.search-icon {
+            font-size: 1.3rem;
           }
         }
       }
+      // Yeni Hesap Ekle Butonu
       &:last-child {
+        @media (max-width: 620px) {
+          position: absolute;
+          right: 45px;
+          transition: all 0.5s;
+        }
         .btn-container {
           @include m.flexbox(row, flex-end, center);
           .btn-primary {
             @include m.flexbox(row, center, center);
             border-radius: 22px;
             white-space: nowrap;
-            padding: 0.5rem;
+            padding: 0.3rem;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
             svg {
-              font-size: large;
-              margin: 0 0.2rem 0.1rem 0.4rem;
+              font-size: 1rem;
+              margin: 0 0 0.1rem 0.4rem;
+              @media (max-width: 380px) {
+                font-size: 0.7rem;
+                transition: all 0.5s;
+              }
             }
             span {
               padding: 0 0.5rem;
               font-size: 0.9rem;
+              @media (max-width: 380px) {
+                font-size: 0.7rem;
+                transition: all 0.5s;
+              }
             }
           }
         }
       }
     }
   }
-
-  .dx-datagrid-header-panel {
-    position: absolute;
-    top: -3.6rem;
-    left: 250px;
-    .dx-datagrid-search-panel {
-      border-radius: 40px;
-      border: none;
-      padding: 0.25rem;
-      .dx-texteditor-container {
-        border-radius: 40px;
-        .dx-texteditor-input-container {
+  // Datagrid Bölümü
+  .dx-datagrid {
+    border-radius: 8px;
+    // Arama Barının Yerine Taşınması
+    .dx-datagrid-header-panel {
+      position: absolute;
+      top: -3.08rem;
+      left: 225px;
+      @media (max-width: 620px) {
+        left: 300px;
+        transition: all 0.5s;
+      }
+      @media (max-width: 475px) {
+        left: 200px;
+        transition: all 0.5s;
+      }
+      @media (max-width: 380px) {
+        height: 1.8rem;
+        left: 180px;
+        top: -3.2rem;
+        transition: all 0.5s;
+      }
+      .dx-datagrid-search-panel {
+        border-radius: 39px;
+        border: none;
+        @media (max-width: 620px) {
+          width: 300px !important;
+          transition: all 0.5s;
+        }
+        @media (max-width: 475px) {
+          width: 200px !important;
+          transition: all 0.5s;
+        }
+        @media (max-width: 380px) {
+          height: 1.8rem;
+          width: 180px !important;
+          transition: all 0.5s;
+        }
+        .dx-texteditor-container {
           border-radius: 40px;
-          .dx-icon-search {
-            display: none;
-          }
-          .dx-texteditor-input {
-            padding-left: 1rem !important;
-          }
-          .dx-placeholder {
-            left: -18px;
+          .dx-texteditor-input-container {
+            border-radius: 40px;
+            .dx-icon-search {
+              display: none;
+            }
+            .dx-texteditor-input {
+              padding-left: 1rem !important;
+            }
+            .dx-placeholder {
+              left: -18px;
+            }
           }
         }
       }
+    }
+    // Kolon Başlıkları ile Filtreleme Butonuna Basılınca Açılan Bölüm
+    .dx-datagrid-headers {
+      border-radius: 8px 8px 0 0;
+      border-bottom: none;
+      border: none;
+      box-shadow: 0px -5px 5px 0px rgba(0, 0, 0, 0.1);
+      .dx-datagrid-content {
+        border-radius: 8px 8px 0 0;
+        .dx-row {
+          td {
+            color: v.$color3;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 19.5px;
+            padding: 0.9rem 0.8rem 0.9rem 2rem;
+            &:nth-child(2) {
+              border: 0 1px 0 1px solid v.$color6;
+            }
+            &.dx-editor-cell {
+              padding: 0.5rem 0.8rem 0.5rem 1.5rem;
+            }
+            .dx-sort {
+              color: v.$color1;
+              font-weight: 900;
+              padding-left: 1rem;
+              font-size: 1.3rem;
+            }
+          }
+        }
+      }
+    }
+    // Satırların Yer Aldığı Bölüm
+    .dx-datagrid-rowsview {
+      border-radius: 0 0 8px 8px;
+      border-top: 0.5px solid v.$color6;
+      border: none;
+      box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+      .dx-datagrid-table {
+        .dx-row {
+          td {
+            font-family: "Inter";
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 1rem 0.8rem 1rem 2rem;
+            &:nth-child(2) {
+              border: 0 1px 0 1px solid v.$color6;
+            }
+          }
+        }
+      }
+    }
+    // Pagination ile ChangeRow Yapısının Olduğu Bölüm
+    .dx-datagrid-pager {
+      border-top: none;
+      margin-top: 0.5rem;
+      @include m.flexbox(row, space-between, center);
+      // ChangeRow Yapısının Olduğu Bölüm
+      .dx-page-sizes {
+        .dx-show-invalid-badge {
+          border-radius: 39px;
+          margin-left: 60px;
+          min-width: 80px;
+          border: 1px solid v.$color9;
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+          @media (max-width: 445px) {
+            margin-left: 0;
+            transition: all 0.5s;
+          }
+          @media (max-width: 385px) {
+            height: 1.8rem;
+            transition: all 0.5s;
+          }
+          .dx-texteditor-container {
+            border-radius: 39px;
+            .dx-texteditor-input-container {
+              border-radius: 39px 0 0 39px;
+              font-size: 10px;
+              line-height: 15px;
+              font-weight: 400;
+              @include m.flexbox(row, center, center);
+              &::after {
+                content: "rows";
+              }
+            }
+            .dx-texteditor-buttons-container {
+              border: 0 39px 39px 0;
+              .dx-dropdowneditor-icon {
+                background-color: v.$color2;
+                color: v.$color1;
+              }
+            }
+          }
+        }
+      }
+      // Pagination Yapısının Olduğu Bölüm
+      .dx-pages {
+        .dx-page-indexes {
+          .dx-button-disable {
+            color: v.$color1;
+            font-size: 1rem;
+            @media (max-width: 385px) {
+              padding: 9px 5px;
+              transition: all 0.5s;
+            }
+          }
+          .dx-light-pages {
+            font-size: 10px;
+            line-height: 15px;
+            font-weight: 400;
+            .dx-page-index {
+              font-size: 10px;
+              line-height: 15px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+  // Change Row Yanına Taşınan Show İfadesi
+  span.show {
+    position: absolute;
+    bottom: 70px;
+    color: v.$color1;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    @media (max-width: 445px) {
+      display: none;
+      transition: all 0.5s;
     }
   }
 }
