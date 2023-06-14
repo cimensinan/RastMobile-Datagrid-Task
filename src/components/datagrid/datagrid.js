@@ -19,7 +19,7 @@ import "./datagrid.scss";
 const Datagrid = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const allowedPageSizes = [4, 8, 0];
+  const allowedPageSizes = [2, 4, 8, 0];
   const [filterRowVisible, setFilterRowVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
