@@ -8,7 +8,7 @@ import DataGrid, {
   Scrolling,
   FilterRow,
 } from "devextreme-react/data-grid";
-import { Modal, Form, Button, Row, Col } from "react-bootstrap";
+import { Modal, Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getAllData, postData } from "../../api/mockapi-service";
@@ -18,6 +18,7 @@ import "./datagrid.scss";
 
 const Datagrid = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const allowedPageSizes = [4, 8, 0];
   const [filterRowVisible, setFilterRowVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +32,7 @@ const Datagrid = () => {
   };
 
   const loadData = async () => {
+    
     try {
       const storedData = localStorage.getItem("myData");
       if (storedData) {
@@ -42,10 +44,11 @@ const Datagrid = () => {
       }
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   const onSubmit = async (values) => {
+    setLoading(true)
     try {
       await postData(values);
       const updatedData = [...data, values];
@@ -55,6 +58,8 @@ const Datagrid = () => {
       formik.resetForm(initialValues);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -252,8 +257,13 @@ const Datagrid = () => {
             <Button variant="secondary" onClick={handleCancel} style={{borderRadius: "34px", fontSize: "13px", fontWeight: "500", color: "#744BFC"}}>
               Vazgeç
             </Button>
-            <Button variant="primary" type="submit" disabled={!(formik.dirty && formik.isValid)} style={{borderRadius: "34px", fontSize: "13px", fontWeight: "500"}}>
-              Kaydet
+            <Button variant="primary" type="submit" disabled={!(formik.dirty && formik.isValid) || loading} style={{borderRadius: "34px", fontSize: "13px", fontWeight: "500"}}>
+            {loading && (
+                <Spinner
+                  animation="border"
+                  size="sm"
+                />
+              )}{" "}Kaydet
             </Button>
           </Modal.Footer>
         </Form>
