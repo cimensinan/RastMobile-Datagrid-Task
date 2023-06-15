@@ -4,9 +4,8 @@
 .not-found {
     text-align: center;
     position: relative;
-    min-height: 80vh;
+    min-height: 50vh;
     z-index: 1;
-    background-color: v.$color4;
     @include m.flexbox(column, center, center, 0);
     &::after {
       content: "404";
@@ -16,7 +15,7 @@
       transform: translate(-50%, -50%);
       font-size: 30vw;
       font-weight: 800;
-      color: white;
+      color: v.$color4;
       z-index: -1;
     }
   }
