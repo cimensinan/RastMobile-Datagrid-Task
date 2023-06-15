@@ -1,10 +1,12 @@
 @use "../../../assets/scss/mixins" as m;
+@use "../../../assets/scss/variables" as v;
 
 .not-found {
     text-align: center;
     position: relative;
-    min-height: 60vh;
+    min-height: 80vh;
     z-index: 1;
+    background-color: v.$color4;
     @include m.flexbox(column, center, center, 0);
     &::after {
       content: "404";

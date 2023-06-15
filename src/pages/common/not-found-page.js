@@ -8,7 +8,6 @@ const NotFoundPage = () => {
     <Template>
       <Spacer />
       <NotFound />
-      <Spacer />
     </Template>
   );
 };
